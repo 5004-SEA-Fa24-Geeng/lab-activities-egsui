@@ -1,3 +1,8 @@
+import java.util.Comparator;
+import java.util.List;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 class Book implements Comparable<Book> {
     private String title;
     private String author;
@@ -46,4 +51,20 @@ class Book implements Comparable<Book> {
         return this.getTitle().compareTo(other.getTitle());
     }
 
+    public static void main(String[] args) {
+        List<String> bookStrings = Arrays.asList("The Great Gatsby,F. Scott Fitzgerald,1925",
+                "To Kill a Mockingbird,Harper Lee,1960",
+                "1984,George Orwell,1949",
+                "The Catcher in the Rye,J.D. Salinger,1951",
+                "Beloved,Toni Morrison,1987");
+        // stream to_list
+        List<Book> books = bookStrings.stream().map(Book::createFromString).collect(Collectors.toList());
+        System.out.println(books);
+
+        // Find out the books published before "the certain year", and sorted the books by ascending year
+        List<Book> books2 = books.stream().filter(book -> book.getYear() <= 2000)
+                .sorted(Comparator.comparing(Book::getYear)).collect(Collectors.toList());
+        System.out.println(books2);
+
+    }
 }
