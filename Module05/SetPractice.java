@@ -27,6 +27,21 @@ public class SetPractice {
         // Make sure to have a duplicate student or person
 
 
+        // Streams with Sets
+        Set<Person> people = new HashSet<>();
+        Person p1 = new Person("Alice");
+        Person p2 = new Student("Alice", 1);
+        Person p3 = new Student("Alice", 2);
+
+        people.add(p1);
+        people.add(p2);
+        people.add(p3);
+        people.add(new Person("Bob"));
+        people.add(new Person("Carol"));
+
+        people.stream().filter(p -> p.getName().equals("Alice")).forEach(System.out::println);
+
+
 
     }
 

@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 /** feel free to use this template as a starting point. */
 
 public class Student extends Person {
@@ -17,6 +19,26 @@ public class Student extends Person {
         return "StudentSolution{" + "name='" + this.getName() + '\'' + ", id=" + this.getId() + '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
+        if (o.getClass() != this.getClass()) {
+            return false;
+        }
+//        if (!(o instanceof Student)) {
+//            return false;
+//        }
+        Student otherStudent = (Student) o;
+        return (this.getId() == otherStudent.getId() && this.getName().equals(otherStudent.getName()));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getName(), this.getId());
+    }
+
     public static void main(String[] args) {
         int value = 10;
         Person e1 = new Student("Alice", 1);
@@ -31,6 +53,7 @@ public class Student extends Person {
         System.out.println(e1 == e4); // what is printed here?
 
         System.out.println(e1.equals(e4)); // and here?
-        System.out.println(e1.equals(e5)); // and here?
+        System.out.println(e1.equals(e5));
+        System.out.println(e5.equals(e1));  // and here?
     }
 }

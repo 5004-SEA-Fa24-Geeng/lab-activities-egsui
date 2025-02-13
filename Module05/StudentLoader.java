@@ -1,11 +1,9 @@
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Stream;
 import java.util.stream.Collectors;
 
@@ -44,12 +42,44 @@ import java.util.stream.Collectors;
  */
 
 public class StudentLoader {
+    private static Map<String, Set<String>> students = new HashMap<>();
 
     // todo: write a program that reads
     // the courses.txt file, and links
     // all classes with the String (name) of the student
     // outputs then will be "person has completed class1 class2 etc"
     // for each student
+    public static void main(String[] args) {
+        Student st1 = new Student("A", 1);
+        Student st2 = new Student("B", 2);
+        Student st3 = new Student("C", 3);
+
+        students.put(st1.getName(), Set.of("class 1", "class 2"));
+        students.put(st2.getName(), Set.of("class 4", "class 5"));
+        students.put(st3.getName(), Set.of("class 6"));
+
+        try {
+            List<String> lines = new ArrayList<>();
+            List<String> sdt_class = students.entrySet().stream().map(x -> {
+                String name = x.getKey();
+                String cls = "| ";
+                for (String s : x.getValue()) {
+                    cls += s + " | ";
+                }
+                return name + " takes:\n" + cls;
+            }).toList();
+            for (String s : sdt_class) {
+                lines.add(s);
+            }
+
+            Files.write(Path.of("courses.txt"), lines);
+
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
 
 
 }
